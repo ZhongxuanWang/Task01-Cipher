@@ -36,7 +36,7 @@ public class ROTCipher {
         BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
         String guessedText = "";
         while (true) {
-            System.out.printf("Key: %d, ROT Encrypted String: %s \n", key, cipheredText);
+            System.out.printf("Key: %d, ROT Encrypted String: %s \n>", key, cipheredText);
             try {
                  guessedText = inp.readLine();
             } catch (Exception ignored) {
