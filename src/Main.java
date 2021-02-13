@@ -17,6 +17,8 @@ public class Main {
         VigenereCipher vigenereCipher = new VigenereCipher("DanielIsSmart", "IKnewIt");
         vigenereCipher.guess();
 
+        System.out.println(vigenereCipher.getCipheredText());
+
         XORCipher xorCipher = new XORCipher("DanielIsSmart", "YouAreRight");
         xorCipher.guess();
     }

@@ -14,7 +14,7 @@ public class XORCipher {
 
     public XORCipher(String originalText, String key) {
         key = key.toUpperCase();
-        this.originalText = originalText;
+        this.originalText = originalText.toLowerCase();
         int tempLen;
         this.circularKey = new String(new char[(tempLen = originalText.length()) / key.length() + 1]).replace("\0", key).substring(0, tempLen);
         this.binVal = calcBinVal();
@@ -23,10 +23,10 @@ public class XORCipher {
 
     private String cipher() {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < binVal.length(); i +=8) {
+        for (int i = 0; i < binVal.length(); i += 8) {
             // It looks long, but essentially just do the conversion, and the new Character(...) stuff just converts
             //  the thing into Character so that it can be converted to string.
-            result.append((new Character((char)((int)Integer.valueOf(binVal.substring(i, i+8), 2)))).toString());
+            result.append((new Character((char) ((int) Integer.valueOf(binVal.substring(i, i + 8), 2)))).toString());
         }
         return result.toString();
     }
@@ -42,7 +42,7 @@ public class XORCipher {
             } catch (Exception ignored) {
                 continue;
             }
-            if (guessedText.trim().toUpperCase().equals(originalText)) {
+            if (guessedText.trim().equalsIgnoreCase(originalText)) {
                 System.out.println("YOU ARE GENIUS!");
                 break;
             } else {
@@ -56,7 +56,7 @@ public class XORCipher {
         byte[] originalTextBytes = originalText.getBytes(StandardCharsets.UTF_8);
         byte[] circularKeyBytes = circularKey.getBytes(StandardCharsets.UTF_8);
 
-        for (int i = 0; i < originalText.length(); i ++) {
+        for (int i = 0; i < originalText.length(); i++) {
             int originalTextByte = originalTextBytes[i];
             int circularKeyByte = circularKeyBytes[i];
             for (int j = 0; j < 8; j++) {
@@ -64,7 +64,7 @@ public class XORCipher {
                 final int CKBin = (circularKeyByte & 128) == 0 ? 0 : 1;
                 originalTextByte <<= 1;
                 circularKeyByte <<= 1;
-                result.append((OTBin == CKBin)?0:1);
+                result.append((OTBin == CKBin) ? 0 : 1);
             }
         }
 
@@ -75,7 +75,8 @@ public class XORCipher {
         return binVal;
     }
 
-    private void setBinVal(String binVal) {}
+    private void setBinVal(String binVal) {
+    }
 
     public String getKey() {
         return circularKey;
@@ -94,7 +95,7 @@ public class XORCipher {
     }
 
     public void setOriginalText(String originalText) {
-        this.originalText = originalText;
+        this.originalText = originalText.toLowerCase();
         this.cipheredText = cipher();
         this.binVal = calcBinVal();
     }
@@ -104,4 +105,10 @@ public class XORCipher {
     }
 
     private void setCipheredText(String cipheredText) {}
+
+    public String getCircularKey() {
+        return circularKey;
+    }
+
+    private void setCircularKey(String circularKey) {}
 }
